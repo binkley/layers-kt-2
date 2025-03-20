@@ -1,6 +1,6 @@
 package hm.binkley.x
 
-import java.util.*
+typealias Key = String // TODO: Reconsider moving back to generic type K
 
 fun main() = Unit
 
@@ -16,24 +16,22 @@ data class Value<T : Any>(
 
 fun <T : Any> T.toValue() = Value(this)
 
-abstract class Rule<K : Any, T : Any>(
+abstract class Rule<T : Any>(
     val name: String,
 ) : ValueOrRule<T>(),
-    (K, Sequence<T>, Layers<K, T, *>) -> T {
+    (String, Sequence<T>, Layers<T, *>) -> T {
     override fun toString() = "<Rule>$name"
 }
 
-interface Layer<K : Any, V : Any, out L : Layer<K, V, L>> :
-    Map<K, ValueOrRule<V>> {
+interface Layer<V : Any, out L : Layer<V, L>> : Map<Key, ValueOrRule<V>> {
     val name: String
 
     @Suppress("UNCHECKED_CAST")
     val self: L get() = this as L
 }
 
-interface Layers<K : Any, V : Any, L : Layer<K, V, L>> : Map<K, V> {
+interface Layers<V : Any, L : Layer<V, L>> : Map<String, V> {
     val name: String
-    val history: Stack<Layer<K, V, L>>
-
-    val current: Layer<K, V, L>
+    val history: List<Layer<V, L>>
+    val current: Layer<V, L>
 }
