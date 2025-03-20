@@ -16,10 +16,12 @@ data class Value<T : Any>(
 
 fun <T : Any> T.toValue() = Value(this)
 
+interface RuleFun<T : Any> : (String, Sequence<T>, Layers<T, *>) -> T
+
 abstract class Rule<T : Any>(
     val name: String,
 ) : ValueOrRule<T>(),
-    (String, Sequence<T>, Layers<T, *>) -> T {
+    RuleFun<T> {
     override fun toString() = "<Rule>$name"
 }
 
