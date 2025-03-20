@@ -4,18 +4,28 @@ typealias Key = String // TODO: Reconsider moving back to generic type K
 
 fun main() = Unit
 
-sealed class Value<T : Any>(
-    val value: T,
-) {
+sealed interface Value<T : Any> {
+    val value: T
+}
+
+abstract class ValueBase<T : Any> : Value<T> {
     override fun toString(): String = "<Value>$value"
 }
+
+data class IntValue(
+    override val value: Int,
+) : ValueBase<Int>()
+
+data class StringValue(
+    override val value: String,
+) : ValueBase<String>()
 
 interface RuleFun<T : Any> : (Key, Sequence<T>, Layers<T, *>) -> T
 
 abstract class Rule<T : Any>(
     val name: String,
-    rule: RuleFun<T>,
-) : Value<RuleFun<T>>(rule) {
+    override val value: RuleFun<T>,
+) : Value<RuleFun<T>> {
     override fun toString() = "<Rule>$name"
 }
 
