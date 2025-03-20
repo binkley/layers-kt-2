@@ -4,7 +4,7 @@ typealias Key = String // TODO: Reconsider moving back to generic type K
 
 fun main() = Unit
 
-sealed class ValueOrRule<V : Any> {
+sealed class ValueOrRule<T : Any> {
     abstract override fun toString(): String
 }
 
@@ -23,15 +23,15 @@ abstract class Rule<T : Any>(
     override fun toString() = "<Rule>$name"
 }
 
-interface Layer<V : Any, out L : Layer<V, L>> : Map<Key, ValueOrRule<V>> {
+interface Layer<T : Any, out L : Layer<T, L>> : Map<Key, ValueOrRule<T>> {
     val name: String
 
     @Suppress("UNCHECKED_CAST")
     val self: L get() = this as L
 }
 
-interface Layers<V : Any, L : Layer<V, L>> : Map<String, V> {
+interface Layers<T : Any, L : Layer<T, L>> : Map<String, T> {
     val name: String
-    val history: List<Layer<V, L>>
-    val current: Layer<V, L>
+    val history: List<Layer<T, L>>
+    val current: Layer<T, L>
 }
