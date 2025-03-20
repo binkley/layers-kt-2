@@ -19,15 +19,16 @@ abstract class Rule<T : Any>(
     override fun toString() = "<Rule>$name"
 }
 
-interface Layer<T : Any, out L : Layer<T, L>> : Map<Key, Value<T>> {
-    val name: String
-
+abstract class Layer<T : Any, out L : Layer<T, L>>(
+    val name: String,
+) : Map<Key, Value<T>> {
     @Suppress("UNCHECKED_CAST")
     val self: L get() = this as L
 }
 
-interface Layers<T : Any, L : Layer<T, L>> : Map<Key, T> {
-    val name: String
-    val history: List<Layer<T, L>>
-    val current: Layer<T, L>
+abstract class Layers<T : Any, L : Layer<T, L>>(
+    val name: String,
+) : Map<Key, T> {
+    abstract val history: List<Layer<T, L>>
+    abstract val current: Layer<T, L>
 }
