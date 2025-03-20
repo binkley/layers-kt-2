@@ -16,7 +16,7 @@ data class Value<T : Any>(
 
 fun <T : Any> T.toValue() = Value(this)
 
-interface RuleFun<T : Any> : (String, Sequence<T>, Layers<T, *>) -> T
+interface RuleFun<T : Any> : (Key, Sequence<T>, Layers<T, *>) -> T
 
 abstract class Rule<T : Any>(
     val name: String,
@@ -32,7 +32,7 @@ interface Layer<T : Any, out L : Layer<T, L>> : Map<Key, ValueOrRule<T>> {
     val self: L get() = this as L
 }
 
-interface Layers<T : Any, L : Layer<T, L>> : Map<String, T> {
+interface Layers<T : Any, L : Layer<T, L>> : Map<Key, T> {
     val name: String
     val history: List<Layer<T, L>>
     val current: Layer<T, L>
