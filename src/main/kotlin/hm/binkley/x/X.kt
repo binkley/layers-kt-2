@@ -4,28 +4,22 @@ typealias Key = String // TODO: Reconsider moving back to generic type K
 
 fun main() = Unit
 
-sealed class ValueOrRule<T : Any> {
-    abstract override fun toString(): String
-}
-
-data class Value<T : Any>(
+sealed class Value<T : Any>(
     val value: T,
-) : ValueOrRule<T>() {
-    override fun toString() = "<Value>$value"
+) {
+    override fun toString(): String = "<Value>$value"
 }
-
-fun <T : Any> T.toValue() = Value(this)
 
 interface RuleFun<T : Any> : (Key, Sequence<T>, Layers<T, *>) -> T
 
 abstract class Rule<T : Any>(
     val name: String,
-) : ValueOrRule<T>(),
-    RuleFun<T> {
+    rule: RuleFun<T>,
+) : Value<RuleFun<T>>(rule) {
     override fun toString() = "<Rule>$name"
 }
 
-interface Layer<T : Any, out L : Layer<T, L>> : Map<Key, ValueOrRule<T>> {
+interface Layer<T : Any, out L : Layer<T, L>> : Map<Key, Value<T>> {
     val name: String
 
     @Suppress("UNCHECKED_CAST")
