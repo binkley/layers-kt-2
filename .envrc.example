@@ -1,0 +1,5 @@
+# Run script for direnv
+# For OWASP
+export OWASP_NVD_API_KEY='<your OWASP NVD API key>'
+# To make Maven happier -- assumes use of jenv
+# export JAVA_HOME="$(jenv javahome)"

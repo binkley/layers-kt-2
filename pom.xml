@@ -8,11 +8,11 @@
     <artifactId>x</artifactId>
     <version>0-SNAPSHOT</version>
 
-    <name>X</name>
+    <name>layers-kt-2</name>
     <description>
-        Experiment with layers
+        Second experiment with "list of maps" in Kotlin
     </description>
-    <!-- <url>https://github.com/binkley/kunits</url> -->
+    <url>https://github.com/binkley/layers-kt-2</url>
     <licenses>
         <license>
             <name>CC0</name>
@@ -24,18 +24,18 @@
             </comments>
         </license>
     </licenses>
-    <!-- <scm>
-        <connection>scm:git:git://github.com/binkley/kunits</connection>
-        <url>https://github.com/binkley/kunits</url>
+    <scm>
+        <connection>scm:git:git://github.com/binkley/layers-kt-2</connection>
+        <url>https://github.com/binkley/layers-kt-2</url>
     </scm>
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/binkley/kunits/issues</url>
+        <url>https://github.com/binkley/layers-kt-2/issues</url>
     </issueManagement>
     <ciManagement>
         <system>GitHub</system>
-        <url>https://github.com/binkley/kunits/actions</url>
-    </ciManagement> -->
+        <url>https://github.com/binkley/layers-kt-2/actions</url>
+    </ciManagement>
 
     <developers>
         <developer>
