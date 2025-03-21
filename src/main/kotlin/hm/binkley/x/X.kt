@@ -1,3 +1,17 @@
+/**
+ * Design choices are driven by _Clean Code_ principles.
+ * Among those choices include goals of:
+ * - Idiomatic code
+ * - Simple, clear API user experience
+ * - Push problems to compile time when possible
+ * - Push complexity into the library away from API users
+ * - Consistent code and patterns
+ * - Extensibility, ie, open-close principle
+ * - Type safety
+ * - Avoid `null` unless required by a public API in the stdlib
+ * - Use design-by-contract patterns
+ * - Good naming
+ */
 package hm.binkley.x
 
 typealias Key = String // TODO: Reconsider moving back to generic type K
