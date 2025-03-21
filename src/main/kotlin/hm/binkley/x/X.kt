@@ -48,8 +48,15 @@ inline fun <T : Any> rule(
     crossinline ruleFun: (Key, Sequence<T>, Layers<T, *>) -> T,
 ): Rule<T> = Rule(name) { key, values, layers -> ruleFun(key, values, layers) }
 
+/** The default rule unless another is given for a key. */
 fun <T : Any> mostRecentRule() =
     rule<T>("<most recent>") { _, values, _ -> values.last() }
+
+/** A sample rule showing use of all three `RuleFun` parameters. */
+fun sampleRuleAcrossKeys(vararg otherKeys: Key) =
+    rule<Int>("<sample across keys>") { key, values, layers ->
+        layers[key]!! + otherKeys.mapNotNull { layers[it] }.sum()
+    }
 
 open class Layer<T : Any, out L : Layer<T, L>>(
     val name: String,
