@@ -20,17 +20,13 @@ sealed interface Value<T : Any> {
     val value: T
 }
 
-abstract class ValueBase<T : Any> : Value<T> {
-    override fun toString(): String = "<Value>$value"
-}
-
 data class IntValue(
     override val value: Int,
-) : ValueBase<Int>()
+) : Value<Int>
 
 data class StringValue(
     override val value: String,
-) : ValueBase<String>()
+) : Value<String>
 
 fun interface RuleFun<T : Any> : (Key, Sequence<T>, Layers<T>) -> T
 

@@ -3,7 +3,7 @@ package hm.binkley.layers
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-internal class RuleTest {
+internal class RulesTest {
     @Test
     fun `should compile a rule`() {
         rule("<test rule>") { _, _, _ -> 1 }
