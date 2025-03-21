@@ -32,18 +32,24 @@ data class StringValue(
     override val value: String,
 ) : ValueBase<String>()
 
-fun interface RuleFun<T : Any> : (Key, Sequence<T>, Layers<T, *>) -> T
+fun interface RuleFun<T : Any> : (Key, Sequence<T>, Layers<T>) -> T
 
 open class Rule<T : Any>(
     val name: String,
     override val value: RuleFun<T>,
 ) : Value<RuleFun<T>> {
     override fun toString() = "<Rule>$name"
+
+    operator fun invoke(
+        key: Key,
+        values: Sequence<T>,
+        layers: Layers<T>,
+    ) = value(key, values, layers)
 }
 
 inline fun <T : Any> rule(
     name: String,
-    crossinline ruleFun: (Key, Sequence<T>, Layers<T, *>) -> T,
+    crossinline ruleFun: (Key, Sequence<T>, Layers<T>) -> T,
 ): Rule<T> = Rule(name) { key, values, layers -> ruleFun(key, values, layers) }
 
 /** The default rule unless another is given for a key. */
@@ -56,19 +62,16 @@ fun sampleRuleAcrossKeys(vararg otherKeys: Key) =
         layers[key]!! + otherKeys.mapNotNull { layers[it] }.sum()
     }
 
-open class Layer<T : Any, out L : Layer<T, L>>(
+open class Layer<T : Any>(
     val name: String,
     delegate: MutableMap<Key, Value<T>> = mutableMapOf(),
-) : Map<Key, Value<T>> by delegate {
-    @Suppress("UNCHECKED_CAST")
-    val self: L get() = this as L
-}
+) : Map<Key, Value<T>> by delegate
 
-open class Layers<T : Any, L : Layer<T, L>>(
+open class Layers<T : Any>(
     val name: String,
-    delegate: MutableList<Layer<T, L>> = mutableListOf(),
+    delegate: MutableList<Layer<T>> = mutableListOf(),
 ) : AbstractMutableMap<Key, T>() {
-    val history: List<Layer<T, L>> = delegate
+    val history: List<Layer<T>> = delegate
 
     override fun put(
         key: Key,
