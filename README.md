@@ -24,9 +24,6 @@ script so you can work without installing Maven locally.
 ```
 $ ./mvnw clean verify
 $ ./run  # a demo
-# Or:
-$ earthly +build
-$ earthly +run  # a demo
 ```
 
 > [!NOTE]
@@ -41,3 +38,19 @@ $ earthly +run  # a demo
 Test coverage is 100% for lines, branches, and instructions.
 Checkout [CI builds](https://github.com/binkley/layers-kt-2/actions) to see what
 happens.
+
+If you locally use [Earthly](https://github.com/earthly/earthly) (a
+containerized build), you can try:
+
+```
+$ earthly +build
+$ earthly +run  # a demo
+```
+
+If you locally use the [`gh`](https://cli.github.com/) (manage GitHub actions)
+and [`act`](https://github.com/nektos/act) (run GH actions locally) tools, you
+can try:
+
+```
+$ gh act
+```
