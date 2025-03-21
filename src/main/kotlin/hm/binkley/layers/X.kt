@@ -12,7 +12,7 @@
  * - Use design-by-contract patterns
  * - Good naming
  */
-package hm.binkley.x
+package hm.binkley.layers
 
 typealias Key = String // TODO: Reconsider moving back to generic type K
 
