@@ -45,9 +45,19 @@ open class Layer<T : Any, out L : Layer<T, L>>(
     val self: L get() = this as L
 }
 
-abstract class Layers<T : Any, L : Layer<T, L>>(
+open class Layers<T : Any, L : Layer<T, L>>(
     val name: String,
     delegate: MutableList<Layer<T, L>> = mutableListOf(),
 ) : AbstractMutableMap<Key, T>() {
     val history: List<Layer<T, L>> = delegate
+
+    override fun put(
+        key: Key,
+        value: T,
+    ): T? {
+        TODO("Not yet implemented")
+    }
+
+    override val entries: MutableSet<MutableMap.MutableEntry<Key, T>>
+        get() = TODO("Not yet implemented")
 }
