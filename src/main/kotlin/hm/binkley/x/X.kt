@@ -20,25 +20,34 @@ data class StringValue(
     override val value: String,
 ) : ValueBase<String>()
 
-interface RuleFun<T : Any> : (Key, Sequence<T>, Layers<T, *>) -> T
+fun interface RuleFun<T : Any> : (Key, Sequence<T>, Layers<T, *>) -> T
 
-abstract class Rule<T : Any>(
+open class Rule<T : Any>(
     val name: String,
     override val value: RuleFun<T>,
 ) : Value<RuleFun<T>> {
     override fun toString() = "<Rule>$name"
 }
 
-abstract class Layer<T : Any, out L : Layer<T, L>>(
+inline fun <T : Any> rule(
+    name: String,
+    crossinline ruleFun: (Key, Sequence<T>, Layers<T, *>) -> T,
+): Rule<T> = Rule(name) { key, values, layers -> ruleFun(key, values, layers) }
+
+fun <T : Any> mostRecentRule() =
+    rule<T>("<most recent>") { _, values, _ -> values.last() }
+
+open class Layer<T : Any, out L : Layer<T, L>>(
     val name: String,
-) : Map<Key, Value<T>> {
+    delegate: MutableMap<Key, Value<T>> = mutableMapOf(),
+) : Map<Key, Value<T>> by delegate {
     @Suppress("UNCHECKED_CAST")
     val self: L get() = this as L
 }
 
 abstract class Layers<T : Any, L : Layer<T, L>>(
     val name: String,
-) : Map<Key, T> {
-    abstract val history: List<Layer<T, L>>
-    abstract val current: Layer<T, L>
+    delegate: MutableList<Layer<T, L>> = mutableListOf(),
+) : AbstractMutableMap<Key, T>() {
+    val history: List<Layer<T, L>> = delegate
 }
