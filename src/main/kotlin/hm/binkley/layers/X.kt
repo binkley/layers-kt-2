@@ -16,8 +16,6 @@ package hm.binkley.layers
 
 typealias Key = String // TODO: Reconsider moving back to generic type K
 
-fun main() = Unit
-
 sealed interface Value<T : Any> {
     val value: T
 }
