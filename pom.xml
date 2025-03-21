@@ -105,11 +105,6 @@
             <id>Maven Central</id>
             <url>https://repo1.maven.org/maven2/</url>
         </repository>
-        <repository>
-            <!-- Needed to find kotlin-rational -->
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
     </repositories>
 
     <dependencyManagement>
@@ -129,12 +124,6 @@
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
             <version>${kotlin.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.binkley</groupId>
-            <artifactId>kotlin-rational</artifactId>
-            <version>${kotlin-rational.version}</version>
         </dependency>
 
         <dependency>
