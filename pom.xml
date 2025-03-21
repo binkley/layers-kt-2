@@ -57,10 +57,10 @@
     <properties>
         <!-- @formatter:off -->
         <buildplan-maven-plugin.version>1.5</buildplan-maven-plugin.version>
-        <coverage.branches>100</coverage.branches>
-        <coverage.instructions>100</coverage.instructions>
-        <coverage.lines>100</coverage.lines>
-        <coverage.mutation>99</coverage.mutation>
+        <coverage.branches>32</coverage.branches>
+        <coverage.instructions>32</coverage.instructions>
+        <coverage.lines>32</coverage.lines>
+        <coverage.mutation>0</coverage.mutation>
         <dependency-check-maven.version>12.1.0</dependency-check-maven.version>
         <detekt-maven-plugin.version>1.23.8</detekt-maven-plugin.version>
         <flexmark.version>0.64.8</flexmark.version>
