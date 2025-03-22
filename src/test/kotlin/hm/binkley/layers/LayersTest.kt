@@ -6,6 +6,11 @@ import org.junit.jupiter.api.Test
 
 internal class LayersTest {
     @Test
+    fun `should make a default layers`() {
+        Layers("TEST")
+    }
+
+    @Test
     fun `TODO - put is not implemented`() {
         val exception =
             shouldThrow<NotImplementedError> {
