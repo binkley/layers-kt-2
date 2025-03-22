@@ -57,9 +57,9 @@
     <properties>
         <!-- @formatter:off -->
         <buildplan-maven-plugin.version>1.5</buildplan-maven-plugin.version>
-        <coverage.branches>44</coverage.branches>
-        <coverage.instructions>44</coverage.instructions>
-        <coverage.lines>44</coverage.lines>
+        <coverage.branches>52</coverage.branches>
+        <coverage.instructions>52</coverage.instructions>
+        <coverage.lines>52</coverage.lines>
         <coverage.mutation>6</coverage.mutation>
         <dependency-check-maven.version>12.1.0</dependency-check-maven.version>
         <detekt-maven-plugin.version>1.23.8</detekt-maven-plugin.version>
