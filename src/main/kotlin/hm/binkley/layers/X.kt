@@ -14,6 +14,8 @@
  */
 package hm.binkley.layers
 
+import kotlin.collections.MutableMap.MutableEntry
+
 typealias Key = String // TODO: Reconsider moving back to generic type K
 
 sealed interface Value<T : Any> {
@@ -28,7 +30,7 @@ data class StringValue(
     override val value: String,
 ) : Value<String>
 
-fun interface RuleFun<T : Any> : (Key, Sequence<T>, Layers<T>) -> T
+fun interface RuleFun<T : Any> : (Key, Sequence<T>, Layers) -> T
 
 open class Rule<T : Any>(
     val name: String,
@@ -39,13 +41,13 @@ open class Rule<T : Any>(
     operator fun invoke(
         key: Key,
         values: Sequence<T>,
-        layers: Layers<T>,
+        layers: Layers,
     ) = value(key, values, layers)
 }
 
 inline fun <T : Any> rule(
     name: String,
-    crossinline ruleFun: (Key, Sequence<T>, Layers<T>) -> T,
+    crossinline ruleFun: (Key, Sequence<T>, Layers) -> T,
 ): Rule<T> = Rule(name) { key, values, layers -> ruleFun(key, values, layers) }
 
 /** The default rule unless another is given for a key. */
@@ -54,28 +56,28 @@ fun <T : Any> mostRecentRule() =
 
 /** A sample rule showing use of all three `RuleFun` parameters. */
 fun sampleRuleAcrossKeys(vararg otherKeys: Key) =
-    rule<Int>("<sample across keys>") { key, values, layers ->
-        layers[key]!! + otherKeys.mapNotNull { layers[it] }.sum()
+    rule("<sample across keys>") { key, values, layers ->
+        layers[key]!! as Int + otherKeys.sumOf { layers[it] as Int }
     }
 
-open class Layer<T : Any>(
+open class Layer(
     val name: String,
-    delegate: MutableMap<Key, Value<T>> = mutableMapOf(),
-) : Map<Key, Value<T>> by delegate
+    delegate: MutableMap<Key, Value<*>> = mutableMapOf(),
+) : Map<Key, Value<*>> by delegate
 
-open class Layers<T : Any>(
+open class Layers(
     val name: String,
-    delegate: MutableList<Layer<T>> = mutableListOf(),
-) : AbstractMutableMap<Key, T>() {
-    val history: List<Layer<T>> = delegate
+    delegate: MutableList<Layer> = mutableListOf(),
+) : AbstractMutableMap<Key, Any>() {
+    val history: List<Layer> = delegate
 
     override fun put(
         key: Key,
-        value: T,
-    ): T? {
+        value: Any,
+    ): Any? {
         TODO("Not yet implemented")
     }
 
-    override val entries: MutableSet<MutableMap.MutableEntry<Key, T>>
+    override val entries: MutableSet<MutableEntry<Key, Any>>
         get() = TODO("Not yet implemented")
 }
