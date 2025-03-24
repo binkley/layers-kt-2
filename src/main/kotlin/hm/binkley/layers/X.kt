@@ -54,12 +54,6 @@ inline fun <T : Any> rule(
 fun <T : Any> mostRecentRule() =
     rule<T>("<most recent>") { _, values, _ -> values.last() }
 
-/** A sample rule showing use of all three `RuleFun` parameters. */
-fun sampleRuleAcrossKeys(vararg otherKeys: Key) =
-    rule("<sample across keys>") { key, values, layers ->
-        layers[key]!! as Int + otherKeys.sumOf { layers[it] as Int }
-    }
-
 open class Layer(
     val name: String,
     delegate: MutableMap<Key, Value<*>> = mutableMapOf(),
