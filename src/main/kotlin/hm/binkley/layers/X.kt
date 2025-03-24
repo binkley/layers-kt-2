@@ -54,11 +54,6 @@ inline fun <T : Any> rule(
 fun <T : Any> mostRecentRule() =
     rule<T>("<most recent>") { _, values, _ -> values.last() }
 
-open class Layer(
-    val name: String,
-    delegate: MutableMap<Key, Value<*>> = mutableMapOf(),
-) : Map<Key, Value<*>> by delegate
-
 open class Layers(
     val name: String,
     delegate: MutableList<Layer> = mutableListOf(),

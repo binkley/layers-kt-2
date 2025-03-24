@@ -58,8 +58,8 @@
         <!-- @formatter:off -->
         <buildplan-maven-plugin.version>1.5</buildplan-maven-plugin.version>
         <coverage.branches>100</coverage.branches>
-        <coverage.instructions>78</coverage.instructions>
-        <coverage.lines>95</coverage.lines>
+        <coverage.instructions>79</coverage.instructions>
+        <coverage.lines>96</coverage.lines>
         <!-- TODO: Mutation coverage is awful as most code is interfaces -->
         <coverage.mutation>9</coverage.mutation>
         <dependency-check-maven.version>12.1.0</dependency-check-maven.version>
