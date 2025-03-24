@@ -14,8 +14,6 @@
  */
 package hm.binkley.layers
 
-import kotlin.collections.MutableMap.MutableEntry
-
 typealias Key = String // TODO: Reconsider moving back to generic type K
 
 sealed interface Value<T : Any> {
@@ -53,18 +51,3 @@ inline fun <T : Any> rule(
 /** The default rule unless another is given for a key. */
 fun <T : Any> mostRecentRule() =
     rule<T>("<most recent>") { _, values, _ -> values.last() }
-
-open class Layers(
-    val name: String,
-    delegate: MutableList<Layer> = mutableListOf(),
-) : AbstractMutableMap<Key, Any>() {
-    val history: List<Layer> = delegate
-
-    override fun put(
-        key: Key,
-        value: Any,
-    ): Any? = TODO("Not yet implemented: put")
-
-    override val entries: MutableSet<MutableEntry<Key, Any>>
-        get() = TODO("Not yet implemented: entries")
-}
