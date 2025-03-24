@@ -1,5 +1,7 @@
 package hm.binkley.layers
 
+typealias Key = String // TODO: Reconsider moving back to generic type K
+
 open class Layers(
     val name: String,
     delegate: MutableList<Layer> = mutableListOf(),
