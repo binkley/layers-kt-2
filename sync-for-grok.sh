@@ -4,9 +4,19 @@
 # when describing a GitHub repo to it, and keeping those in sync for your
 # conversation with Grok.
 
+export PS4='+${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}():} '
+
+set -e
+
 # Configurable variables
 REPO_URL="https://github.com/binkley/layers-kt-2"
 COMMIT_COUNT=5
+
+case "$#" in
+0 ) ;;
+1 ) COMMIT_COUNT="$1" ;;
+* ) echo "Usage: $0 [COMMIT-COUNT(default: 5)]" >&2 ; exit 2 ;;
+esac
 
 echo "Recent commits for $REPO_URL:"
 echo "--------------------------------"
