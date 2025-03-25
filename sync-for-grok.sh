@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# This script provides commit summaries of local suitable to feed into Grok
+# when describing a GitHub repo to it, and keeping those in sync for your
+# conversation with Grok.
+
 # Configurable variables
 REPO_URL="https://github.com/binkley/layers-kt-2"
 COMMIT_COUNT=5
@@ -17,9 +21,15 @@ git log -n "$COMMIT_COUNT" --pretty=format:"%H%n%B" --name-only | while IFS= rea
         fi
         commit_hash="$line"
         echo "Commit: $REPO_URL/commit/$commit_hash"
+        summary_next="true"
+    # First non-blank line after hash is summary
+    elif [[ "$summary_next" == "true" && -n "$line" && ! "$line" =~ ^\s*$ ]]; then
+        echo "Summary: $line"
         echo "Full Message:"
-    # Lines after hash until blank or next hash are message
-    elif [[ -n "$line" && ! "$line" =~ ^[0-9a-f]{40}$ && "$commit_hash" ]]; then
+        echo "  $line" # Repeat summary in full message
+        summary_next="false"
+    # Lines after summary until blank or next hash are message body
+    elif [[ -n "$line" && ! "$line" =~ ^[0-9a-f]{40}$ && "$commit_hash" && "$summary_next" == "false" ]]; then
         if [[ ! "$line" =~ ^\s*$ ]]; then
             echo "  $line" # Preserve Markdown formatting
         elif [[ "$line" =~ ^\s*$ && "$files_started" != "true" ]]; then
