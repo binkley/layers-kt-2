@@ -5,7 +5,7 @@ fun interface RuleFun<T : Any> : (Key, Sequence<T>, Layers) -> T
 open class Rule<T : Any>(
     val name: String,
     override val value: RuleFun<T>,
-) : Value<RuleFun<T>> {
+) : ValueOrRule<RuleFun<T>> {
     override fun toString() = "<Rule>$name"
 
     operator fun invoke(
