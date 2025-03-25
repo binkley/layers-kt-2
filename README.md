@@ -54,3 +54,11 @@ can try:
 ```
 $ gh act
 ```
+
+## Development
+
+To aid working with Grok AI (or other coding LLMs), the
+[`sync-for-grok.sh`](./sync-for-grok.sh) script outputs recent commits in a
+format easily read by humans, and easily read by AI.
+Most LLMs do not support directly working with GitHub repos, but
+some&mdash;like Grok&mdash;can work with file links into your repo.
