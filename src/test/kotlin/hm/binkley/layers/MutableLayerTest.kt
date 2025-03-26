@@ -28,4 +28,15 @@ internal class MutableLayerTest {
         }
         layer.containsKey("FOO") shouldBe false
     }
+
+    @Test
+    fun `should add or update a rule`() {
+        val layer = MutableLayer("TEST")
+        // Cache value for comparison -- each call makes a new lambda object
+        val mostRecentRule = mostRecentRule<Int>()
+        layer.edit {
+            this["FOO"] = mostRecentRule
+        }
+        layer["FOO"] shouldBe mostRecentRule
+    }
 }

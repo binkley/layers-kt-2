@@ -13,14 +13,19 @@ class MutableLayer(
 class EditMap(
     private val delegate: MutableMap<Key, ValueOrRule<*>>,
 ) : MutableMap<Key, ValueOrRule<*>> by delegate {
+    fun put(
+        key: Key,
+        value: Any?,
+    ) {
+        when (value) {
+            null -> delegate.remove(key)
+            is ValueOrRule<*> -> delegate[key] = value
+            else -> delegate[key] = value.toValue()
+        }
+    }
+
     operator fun set(
         key: String,
         value: Any?,
-    ) {
-        if (null == value) {
-            delegate.remove(key)
-        } else {
-            delegate[key] = value.toValue()
-        }
-    }
+    ) = put(key, value)
 }

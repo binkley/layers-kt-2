@@ -58,10 +58,10 @@
         <!-- @formatter:off -->
         <buildplan-maven-plugin.version>1.5</buildplan-maven-plugin.version>
         <coverage.branches>100</coverage.branches>
-        <coverage.instructions>83</coverage.instructions>
-        <coverage.lines>96</coverage.lines>
+        <coverage.instructions>87</coverage.instructions>
+        <coverage.lines>97</coverage.lines>
         <!-- TODO: Mutation coverage is awful as most code is interfaces -->
-        <coverage.mutation>8</coverage.mutation>
+        <coverage.mutation>11</coverage.mutation>
         <dependency-check-maven.version>12.1.0</dependency-check-maven.version>
         <detekt-maven-plugin.version>1.23.8</detekt-maven-plugin.version>
         <flexmark.version>0.64.8</flexmark.version>
