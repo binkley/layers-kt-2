@@ -2,7 +2,7 @@ package hm.binkley.layers
 
 class MutableLayer(
     name: String,
-    private val delegate: MutableMap<Key, ValueOrRule<*>> = mutableMapOf(),
+    delegate: MutableMap<Key, ValueOrRule<*>> = mutableMapOf(),
 ) : Layer(name, delegate) {
     fun edit(block: EditMap.() -> Unit): MutableLayer {
         EditMap(delegate).block()

@@ -2,5 +2,5 @@ package hm.binkley.layers
 
 open class Layer(
     val name: String,
-    delegate: Map<Key, ValueOrRule<*>> = mapOf(),
+    protected val delegate: MutableMap<Key, ValueOrRule<*>> = mutableMapOf(),
 ) : Map<Key, ValueOrRule<*>> by delegate

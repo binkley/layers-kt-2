@@ -12,7 +12,7 @@ internal class MutableLayerTest {
     }
 
     @Test
-    fun `should add or update key values`() {
+    fun `should add or update a plain value`() {
         val layer = MutableLayer("TEST")
         layer.edit {
             this["FOO"] = "BAR"
