@@ -60,6 +60,11 @@ jobs:
           if-no-files-found: error
           path: target/site/jacoco/
 
+      - name: Debug coverage report
+        run: |
+          ls -la target/site/jacoco/
+          cat target/site/jacoco/jacoco.xml || echo "JaCoCo report not found"
+
 # Generate coverage badge for README
 # Gradle builds are similar but will require configuration the path for the
 # CSV JaCoCo report.
@@ -68,13 +73,13 @@ jobs:
         uses: cicirello/jacoco-badge-generator@v2
         with:
           badges-directory: images
+          jacoco-report-path: target/site/jacoco/jacoco.xml
           generate-branches-badge: false
           generate-summary: false
 
       # The saved badge does not appear when you pull code locally
       - name: Add coverage to CI repo
-        # Limit frontpage badge to mainline code, not branches or PRs
-        if: ${{ github.ref == 'refs/head/master' }}
+        if: ${{ github.ref == 'refs/heads/master' }}
         run: |
           cd images
           if [[ ! -z "$(git status --porcelain *.svg)" ]]; then
