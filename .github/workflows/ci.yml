@@ -7,13 +7,13 @@ env:
 
 on:
   push:
+    # Don't run CI on documentation changes
     paths-ignore:
-      # Generic files to ignore for building
       - '*.md'
       - 'images/**'
   pull_request:
+    # Don't run CI on documentation changes
     paths-ignore:
-      # Generic files to ignore for building
       - '*.md'
       - 'images/**'
   workflow_dispatch:
@@ -57,7 +57,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
-          if-no-files-found: error
+            if-no-files-found: error
           path: target/site/jacoco/
 
       - name: Debug coverage report
@@ -69,6 +69,11 @@ jobs:
 # Gradle builds are similar but will require configuration the path for the
 # CSV JaCoCo report.
 
+      - name: Log coverage percentage
+        run: |
+          grep '<counter type="LINE"' target/site/jacoco/jacoco.xml | grep -o 'covered="[0-9]*"' | head -1
+          grep '<counter type="LINE"' target/site/jacoco/jacoco.xml | grep -o 'missed="[0-9]*"' | head -1
+
       - name: Generate coverage badge
         uses: cicirello/jacoco-badge-generator@v2
         with:
@@ -77,8 +82,9 @@ jobs:
           generate-branches-badge: false
           generate-summary: false
 
-      # The saved badge does not appear when you pull code locally
       - name: Add coverage to CI repo
+        # The saved badge does not appear when you pull code locally
+        # Only update coverage badge on master branch
         if: ${{ github.ref == 'refs/heads/master' }}
         run: |
           cd images
