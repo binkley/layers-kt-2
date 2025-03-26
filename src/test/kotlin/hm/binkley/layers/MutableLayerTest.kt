@@ -5,6 +5,13 @@ import org.junit.jupiter.api.Test
 
 internal class MutableLayerTest {
     @Test
+    @Suppress("USELESS_IS_CHECK")
+    fun `should behave as a standard map`() {
+        (MutableLayer("TEST") is Map<Key, *>) shouldBe true
+        (MutableLayer("TEST") !is MutableMap<Key, *>) shouldBe true
+    }
+
+    @Test
     fun `should return self for edits`() {
         val layer = MutableLayer("TEST")
         val returned = layer.edit { }
